@@ -1,0 +1,9 @@
+kubectl apply -f jenkins-service-account.yaml
+kubectl apply -f jenkins-cluster-role-binding.yaml
+kubectl apply -f jenkins-service-account-token.yaml
+kubectl get secret $(kubectl get serviceaccount jenkins -o jsonpath='{.secrets[0].name}') -o jsonpath='{.data.token}' | base64 --decode
+kubectl describe secret jenkins-sa-token
+
+
+kubectl delete -f jenkins-cluster-role-binding.yaml
+kubectl delete -f jenkins-service-account.yaml

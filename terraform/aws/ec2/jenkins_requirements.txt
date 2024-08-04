@@ -1,2 +1,4 @@
-- Pipeline Utility Steps
-- Config PAT (Secret text)
+# - Pipeline Utility Steps
+# - Config PAT (Secret text)
+# Kubernetes CLI Plugin
+# Docker Pipeline Plugin (if building Docker images)
