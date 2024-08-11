@@ -4,7 +4,7 @@ provider "aws" {
 
 # VPC
 module "vpc" {
-  source = "./vpc"
+  source             = "./vpc"
   availability_zones = var.availability_zones
 }
 output "vpc_id" {
@@ -16,15 +16,15 @@ module "rsa" {
   source = "./rsa"
 }
 output "private_key_pem" {
-  value = module.rsa.private_key_pem
+  value     = module.rsa.private_key_pem
   sensitive = true
 }
 
 # ECR
 module "ecr" {
   source = "./ecr"
-  
-  region =  var.aws_region
+
+  region              = var.aws_region
   ecr_repository_name = var.ecr_repository_name
 }
 output "ecr_repo_id" {
@@ -34,14 +34,28 @@ output "ecr_repo_id" {
 
 # EC2
 module "ec2" {
-  source = "./ec2"
-  aws_region      = var.aws_region
-  ami_id          = var.ami_id
-  instance_type   = var.instance_type
-  vpc_id          = module.vpc.vpc_id
-  subnet_ids      = module.vpc.subnet_ids
-  key_name        = module.rsa.key_name
+  source        = "./ec2"
+  aws_region    = var.aws_region
+  ami_id        = var.ami_id
+  instance_type = var.instance_type
+  vpc_id        = module.vpc.vpc_id
+  subnet_ids    = module.vpc.subnet_ids
+  key_name      = module.rsa.key_name
 }
-output "instance_id" {
-  value = module.ec2.instance_id
+output "ec2_role_name" {
+  value = module.ec2.ec2_role_name
+}
+output "ec2_role_arn" {
+  value = module.ec2.ec2_role_arn
+}
+
+# EKS
+module "eks" {
+  source             = "./eks"
+  aws_region         = var.aws_region
+  vpc_id             = module.vpc.vpc_id
+  subnet_ids         = module.vpc.subnet_ids
+  eks_instance_type  = var.eks_instance_type
+  availability_zones = var.availability_zones
+  ec2_role_arn       = module.ec2.ec2_role_arn
 }
