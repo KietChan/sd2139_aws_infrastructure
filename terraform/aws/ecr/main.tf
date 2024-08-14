@@ -2,7 +2,7 @@ provider "aws" {
   region = var.region
 }
 
-resource "aws_ecr_repository" "example" {
+resource "aws_ecr_repository" "k_ecr" {
   name                 = var.ecr_repository_name
   image_tag_mutability = "MUTABLE"
 
@@ -12,5 +12,5 @@ resource "aws_ecr_repository" "example" {
 }
 
 output "ecr_repo_id" {
-  value = aws_ecr_repository.example.id
+  value = aws_ecr_repository.k_ecr.id
 }
