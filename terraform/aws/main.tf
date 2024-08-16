@@ -24,11 +24,9 @@ output "private_key_pem" {
 module "ecr" {
   source = "./ecr"
 
-  region              = var.aws_region
-  ecr_repository_name = var.ecr_repository_name
-}
-output "ecr_repo_id" {
-  value = module.ecr.ecr_repo_id
+  region                       = var.aws_region
+  ecr_repository_name_backend  = var.ecr_repository_name_frontend
+  ecr_repository_name_frontend = var.ecr_repository_name_backend
 }
 
 

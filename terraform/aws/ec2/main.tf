@@ -72,6 +72,7 @@ resource "aws_iam_policy" "ecr_policy" {
           "ecr:PutImage",
           "ecr:InitiateLayerUpload",
           "ecr:UploadLayerPart",
+          "ecr:GetAuthorizationToken",
           "ecr:CompleteLayerUpload",
           "eks:DescribeCluster",
           "eks:ListClusters",

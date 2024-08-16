@@ -6,5 +6,8 @@ availability_zones = ["ap-southeast-1a", "ap-southeast-1b"]
 subnet_cidrs = ["10.0.1.0/24", "10.0.2.0/24"]
 
 # ECR
-ecr_repository_name = "sd2139_ecr_repo_demo"
+ecr_repository_name_frontend = "sd2139_ecr_repo_frontend"
+ecr_repository_name_backend = "sd2139_ecr_repo_backend"
+
+# EKS
 eks_instance_type   = "t2.medium"
