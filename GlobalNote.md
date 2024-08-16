@@ -80,3 +80,12 @@ export ELB=$(kubectl get svc -n grafana grafana -o jsonpath='{.status.loadBalanc
 echo "http://$ELB"
  kubectl get secret --namespace grafana grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
 ```
+
+## Jenkins
+
+### Plugin List
+- 
+
+```
+
+```

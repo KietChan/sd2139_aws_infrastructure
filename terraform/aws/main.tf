@@ -50,12 +50,10 @@ output "ec2_role_arn" {
 }
 
 # EKS
-module "eks" {
-  source             = "./eks"
-  aws_region         = var.aws_region
-#   vpc_id             = module.vpc.vpc_id
-  subnet_ids         = module.vpc.subnet_ids
-  eks_instance_type  = var.eks_instance_type
-  availability_zones = var.availability_zones
-#   ec2_role_arn       = module.ec2.ec2_role_arn
-}
+# module "eks" {
+#   source             = "./eks"
+#   aws_region         = var.aws_region
+#   subnet_ids         = module.vpc.subnet_ids
+#   eks_instance_type  = var.eks_instance_type
+#   availability_zones = var.availability_zones
+# }
