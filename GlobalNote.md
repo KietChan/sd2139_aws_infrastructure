@@ -86,6 +86,7 @@ echo "http://$ELB"
 ### Plugin List
 - NodeJS
 - Pipeline Utility Steps
+- SSH Agent
 
 ### Config Stuff
 
