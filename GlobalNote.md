@@ -84,8 +84,16 @@ echo "http://$ELB"
 ## Jenkins
 
 ### Plugin List
-- 
+- NodeJS
+- Pipeline Utility Steps
 
-```
+### Config Stuff
 
+```shell
+# Create Keypairs for Github authentication so we can push code later - then add the public key to Github
+ssh-keygen -t rsa -b 4096 -C "kiet-jenkins@example.com"
+cat ~/.ssh/id_rsa.pub
+cat ~/.ssh/id_rsa 
+
+# Git Host Key Verification Configuration - Change to Accept first connection to pass the host certificate check
 ```
