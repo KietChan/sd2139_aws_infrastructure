@@ -5,14 +5,10 @@ pipeline {
         stage('Front End Deployment') {
             steps {
                 script {
-                    // Call the API to get the token
                     def token = sh(script: '''
                         aws eks get-token --cluster-name my-eks-cluster --query 'status.token' --output text
                     ''', returnStdout: true).trim()
-
-                    // Store the token as a temporary secret
                     withEnv(["TOKEN=${token}"]) {
-
                         sh '''
                             set +x
                             kubectl config set-credentials eks-user --token=$TOKEN
