@@ -15,6 +15,7 @@ pipeline {
                             aws eks update-kubeconfig --region ap-southeast-1 --name my-eks-cluster
                             kubectl config set-context --current --user=eks-user
                             set -x
+                            cat ./k8s/frontend.yaml
                             kubectl apply -f ./k8s/frontend.yaml
                         '''
                     }
