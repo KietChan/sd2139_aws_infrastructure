@@ -1,7 +1,7 @@
 ## Get Token to connect EC2 to EKS
 ```shell
-TOKEN=$(aws eks get-token --cluster-name my-eks-cluster --query 'status.token' --output text)
-kubectl config set-credentials eks-user --token=$TOKEN
+TOKEN=$(aws eks get-token --cluster-name my-eks-cluster --query 'status.token' --output text) &&  kubectl config set-credentials eks-user --token=$TOKEN
+
 
 # Maybe we don't need those two step above
 aws eks update-kubeconfig --region ap-southeast-1 --name my-eks-cluster
@@ -59,22 +59,17 @@ kubectl get ingress -o wide
 ## Prometheus - Grafana | Helm (Built in - not AWS managed service)
 
 ```shell
- helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
- help repo update
- helm install prometheus prometheus-community/prometheus \                            
-    --namespace prometheus \
-    --set alertmanager.persistentVolume.storageClass="gp2" \
-    --set server.persistentVolume.storageClass="gp2"
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+help repo update
+helm install prometheus prometheus-community/prometheus --namespace prometheus --set alertmanager.persistentVolume.storageClass="gp2" --set server.persistentVolume.storageClass="gp2"
+
+kubectl get all -n prometheus
+kubectl port-forward -n prometheus deploy/prometheus-server 8080:9090
+
 ```
 
 ```shell
-helm install grafana grafana/grafana \
---namespace grafana \
---set persistence.storageClassName="gp2" \
---set persistence.enabled=true \
---set adminPassword='EKS!sAWSome' \
---values /Users/kietlyc/hometemp/nashtech-assignment/sd2139-msa/grafana.yaml \
---set service.type=LoadBalancer
+helm install grafana grafana/grafana --namespace grafana  --set persistence.storageClassName="gp2"  --set persistence.enabled=true  --set adminPassword='EKS!sAWSome'  --values /Users/kietlyc/hometemp/nashtech-assignment/sd2139-msa/grafana.yaml  --set service.type=LoadBalancer
 
 export ELB=$(kubectl get svc -n grafana grafana -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
 echo "http://$ELB"
