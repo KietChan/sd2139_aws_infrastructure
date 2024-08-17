@@ -11,11 +11,8 @@ pipeline {
                     ''', returnStdout: true).trim()
 
                     // Store the token as a temporary secret
-                    withCredentials([string(credentialsId: 'eks-token', variable: 'TOKEN')]) {
-                        // Set the token as an environment variable
-                        env.TOKEN = token
+                    withEnv(["TOKEN=${token}"]) {
 
-                        // Use the token in the next steps
                         sh '''
                             kubectl config set-credentials eks-user --token=$TOKEN
                             aws eks update-kubeconfig --region ap-southeast-1 --name my-eks-cluster
