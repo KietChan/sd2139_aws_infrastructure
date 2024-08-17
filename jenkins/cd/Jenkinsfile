@@ -14,9 +14,11 @@ pipeline {
                     withEnv(["TOKEN=${token}"]) {
 
                         sh '''
+                            set +x
                             kubectl config set-credentials eks-user --token=$TOKEN
                             aws eks update-kubeconfig --region ap-southeast-1 --name my-eks-cluster
                             kubectl config set-context --current --user=eks-user
+                            set -x
                         '''
                     }
                 }
